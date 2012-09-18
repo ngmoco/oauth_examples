@@ -8,4 +8,4 @@ This is to keep track of the OAuth examples that may be given to our game develo
 | -------- | ----------- | ---------:               |
 | Ruby     | Net::HTTP   | gem install simple_oauth |
 | node.js  | builtin     | npm install oauth        |
-
+| java     | Apache Commons HTTP Client | signpost  |
