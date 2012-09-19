@@ -59,7 +59,7 @@ if(app_key == '' || client_key == '' || client_secret == '') {
 			
 				// Use the credentials to make Mobage platform API calls
 	      var data= "";
-	      oa.getProtectedResource("https://app-sandbox.mobage.com/1/"+ app_key + "/opensocial/people/@me/@self", "GET", oauth_access_token, oauth_access_token_secret,  function (error, data, response) {
+	      oa.get("https://app-sandbox.mobage.com/1/"+ app_key + "/opensocial/people/@me/@self", oauth_access_token, oauth_access_token_secret,  function (error, data, response) {
 						if(error) console.log(util.inspect(error, false, null, true))
 	          util.puts("User: " + data);
 	      });
