@@ -1,3 +1,7 @@
+# Example derived from https://github.com/kaeppler/signpost-examples
+# Apache HTTP Client Jars included http://hc.apache.org/
+# Signpost and Commons HTTP Client are Licensed under the Apache License
+
 # Build
 javac -cp commons-codec-1.6.jar:commons-logging-1.1.1.jar:fluent-hc-4.2.1.jar:httpclient-4.2.1.jar:httpclient-cache-4.2.1.jar:httpcore-4.2.1.jar:httpmime-4.2.1.jar:signpost-commonshttp4-1.2.1.2.jar:signpost-core-1.2.1.2.jar src/com/ngmoco/oauth_example/OAuthExample.java
 
