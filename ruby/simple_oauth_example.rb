@@ -11,10 +11,10 @@ client_key = ''
 client_secret = ''
 app_key = ''
 
-if client_key == '' || client_secret = '' || app_key = '' {
+if client_key == '' || client_secret == '' || app_key == '' 
   puts "You need to edit this script to fill in the client_key, client_secret and app_key for your app in the developer portal"
   exit
-}
+end
 
 # When you start, only your client credentials are available
 oauth_config = {
