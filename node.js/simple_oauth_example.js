@@ -4,20 +4,20 @@ var util = require('util');
 // npm install oauth
 var OAuth = require('oauth').OAuth;
 
-// Cut and paste your client key and secret and your app_key from the developer portal here
-var app_key = '';
-var client_key = '';
-var client_secret = '';
+// Cut and paste your client key and secret and your appKey from the developer portal here
+var appKey = '';
+var clientKey = '';
+var clientSecret = '';
 
-if (app_key === '' || client_key === '' || client_secret === '') {
-	util.puts('You need to edit this script to fill in the client_key, client_secret and app_key for your app in the developer portal');
+if (appKey === '' || clientKey === '' || clientSecret === '') {
+	util.puts('You need to edit this script to fill in the clientKey, clientSecret and appKey for your app in the developer portal');
 } else {
 	// Use HTTPS!
-	var oa= new OAuth(
-		'https://app-sandbox.mobage.com/1/'+ app_key + '/request_temporary_credential',
-		'https://app-sandbox.mobage.com/1/'+ app_key + '/request_token',
-		client_key,
-		client_secret,
+	var oa = new OAuth(
+		'https://app-sandbox.mobage.com/1/' + appKey + '/request_temporary_credential',
+		'https://app-sandbox.mobage.com/1/' + appKey + '/request_token',
+		clientKey,
+		clientSecret,
 		'1.0',
 		'oob',
 		'HMAC-SHA1'
@@ -25,36 +25,36 @@ if (app_key === '' || client_key === '' || client_secret === '') {
 
 	// Leg 1
 	// This is to get temporary credential
-	oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
+	oa.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results) {
 		if (error) {
 			util.puts('error :' + error);
 		} else {
-			util.puts('temporary token:' + oauth_token);
-			util.puts('temporary secret:' + oauth_token_secret);
+			util.puts('temporary token:' + oauthToken);
+			util.puts('temporary secret:' + oauthTokenSecret);
 			util.puts('requestoken results :' + util.inspect(results));
 			util.puts('Requesting access token');
-			util.puts('Call Social.Common.Auth.authorizeToken("' + oauth_token + '") from the phone and enter the oauth_verifier:');
+			util.puts('Call Social.Common.Auth.authorizeToken("' + oauthToken + '") from the phone and enter the oauth_verifier:');
 
 			// Leg 2
 			// Now you must send the token portion of the temporary credential token to the phone and
 			// use the Social.Common.Auth.authorizeToken function to authorize the temporary token
 			// Send the oauth_verifier from the phone back to your app server
 			// For testing, this script just reads the oauth_verifier from stdin
-			var oauth_verifier = '';
+			var oauthVerifier = '';
 			process.stdin.on('data', function (chunk) {
-				oauth_verifier = chunk.replace(/(\n|\r)+$/, '');
+				oauthVerifier = chunk.replace(/(\n|\r)+$/, '');
 				process.stdin.pause();
 
 				// Leg 3
 				// This is to get the token credential
-				oa.getOAuthAccessToken(oauth_token, oauth_token_secret, oauth_verifier, function(error, oauth_access_token, oauth_access_token_secret, results2) {
+				oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
 					if (error) {
 						console.log(util.inspect(error, false, null, true));
 					}
 
 					util.puts('Save these credentials to use to sign REST API calls for 24 hours:');
-					util.puts('token credential token: ' + oauth_access_token);
-					util.puts('token credential secret: ' + oauth_access_token_secret);
+					util.puts('token credential token: ' + oauthAccessToken);
+					util.puts('token credential secret: ' + oauthAccessTokenSecret);
 					util.puts('oauth2 token: ' + results2.oauth2_token);
 					util.puts('');
 
@@ -62,7 +62,7 @@ if (app_key === '' || client_key === '' || client_secret === '') {
 
 					// Use the credentials to make Mobage platform API calls
 					var data = '';
-					oa.get('https://app-sandbox.mobage.com/1/' + app_key + '/opensocial/people/@me/@self', oauth_access_token, oauth_access_token_secret, function (error, data, response) {
+					oa.get('https://app-sandbox.mobage.com/1/' + appKey + '/opensocial/people/@me/@self', oauthAccessToken, oauthAccessTokenSecret, function (error, data, response) {
 						if (error) {
 							console.log(util.inspect(error, false, null, true));
 						}
