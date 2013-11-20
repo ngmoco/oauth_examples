@@ -3,6 +3,8 @@ var util = require('util');
 // npm install oauth
 var OAuth = require('oauth').OAuth;
 
+var oa;
+
 // Cut and paste your client key and secret and your appKey from the developer portal here
 // Your app must already be setup to send push notifications for this example to work
 var appKey = '';
@@ -13,7 +15,7 @@ if (appKey === '' || clientKey === '' || clientSecret === '') {
 	util.puts('You need to edit this script to fill in the clientKey, clientSecret and appKey for your app in the developer portal');
 } else {
 	// Use HTTPS!
-	var oa = new OAuth(
+	oa = new OAuth(
 		'https://app-sandbox.mobage.com/1/' + appKey + '/request_temporary_credential',
 		'https://app-sandbox.mobage.com/1/' + appKey + '/request_token',
 		clientKey,
