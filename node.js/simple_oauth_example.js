@@ -1,5 +1,10 @@
 // Original example taken from https://github.com/ciaranj/node-oauth/blob/master/examples/term.ie.oauth-HMAC-SHA1.js
+var https = require('https');
 var util = require('util');
+
+// Node.js' https module defaults to SSLv2, which Mobage does not support. The solution is to force
+// the global HTTPS agent to use SSLv3.
+https.globalAgent.options.secureProtocol = 'SSLv3_method';
 
 // npm install oauth
 var OAuth = require('oauth').OAuth;
